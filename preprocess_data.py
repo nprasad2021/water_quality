@@ -14,7 +14,7 @@ import pandas as pd
 
 
 def preprocess_chemicals(dataset_name = "chemicals.csv", yearbound=2000):
-    df = pd.read_csv(dataset_name)
+    df = pd.read_csv(dataset_name, encoding = "utf-8")
     for i, c in enumerate(df["contaminant_level"].unique()):
         df.loc[df["contaminant_level"]==c, "contaminant_level"] = i
     return df
@@ -25,7 +25,7 @@ def preprocess_chemicals(dataset_name = "chemicals.csv", yearbound=2000):
 
 def preprocess_droughts(dataset_name='droughts', year_bound=2000):
     dataset_path = dataset_name + '.csv'
-    df = pd.read_csv(dataset_path)
+    df = pd.read_csv(dataset_path, encoding = "utf-8")
     valid_start = list(df['valid_start'])
     valid_start = list(map(lambda x: int(x[0:4]), valid_start))
     df['valid_start'] = valid_start
@@ -44,7 +44,7 @@ def preprocess_droughts(dataset_name='droughts', year_bound=2000):
 
 def preprocess_earnings(dataset_name='earnings', year_bound=2000):
     dataset_path = dataset_name + '.csv'
-    df = pd.read_csv(dataset_path)
+    df = pd.read_csv(dataset_path, encoding = "utf-8")
     df_mod = pd.DataFrame({'fips':df['fips'], 'county':df['county'], 'total_med':df['total_med'], 'year':df['year']})
     df.to_csv(dataset_name + '_processed.csv', index=False)
     possible_years = df['year'] >= year_bound
@@ -56,7 +56,7 @@ def preprocess_earnings(dataset_name='earnings', year_bound=2000):
 
 
 def preprocess_education_attainment(dataset_name="education_attainment", yearbound=2000):
-    df = pd.read_csv(dataset_name + '.csv')
+    df = pd.read_csv(dataset_name + '.csv', encoding = "utf-8")
     df = df.loc[df["year"]>=yearbound]
     return df
 
@@ -66,7 +66,7 @@ def preprocess_education_attainment(dataset_name="education_attainment", yearbou
 
 def preprocess_industry_occupation(dataset_name='industry_occupation', year_bound=2000):
     dataset_path = dataset_name + '.csv'
-    df = pd.read_csv(dataset_path)
+    df = pd.read_csv(dataset_path, encoding = "latin-1")
     df = df[df['year'] > year_bound]
     df.to_csv(dataset_name + '_processed.csv', index=False)
     return df
